@@ -19,10 +19,17 @@ public class QuestionDAO {
 	   * @Transactional annotation below will trigger Spring Hibernate transaction manager to automatically create
 	   * a hibernate session. See src/main/webapp/WEB-INF/servlet-context.xml
 	   */
-	  @Transactional
-	  public List<Question> findAll() {
-	    Session session = sessionFactory.getCurrentSession();
-	    List questions = session.createQuery("from Question").list();
-	    return questions;
-	  }
+	
+	@Transactional
+	public void addQuestion(Question question){
+		sessionFactory.getCurrentSession().save(question);
+	}
+	 
+	@Transactional
+	public List<Question> findAll() {
+		Session session = sessionFactory.getCurrentSession();
+		List questions = session.createQuery("from Question").list();
+		return questions;
+	}
+		
 }
