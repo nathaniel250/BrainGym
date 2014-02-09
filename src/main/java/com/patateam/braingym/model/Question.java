@@ -1,4 +1,4 @@
-package com.patateam.braingym;
+package com.patateam.braingym.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +9,7 @@ import javax.persistence.Table;
 @Table(name = "question")
 public class Question {
 	@Id @GeneratedValue private long qid;
+	private long qzid;
 	private String question;
 	private String answer;
 	private String choiceA;
@@ -22,7 +23,12 @@ public class Question {
 	public long getQid() {
 		return qid;
 	}
-	
+	public long getQzid() {
+		return qzid;
+	}
+	public void setQzid(long qzid) {
+		this.qzid = qzid;
+	}
 	public void setQuestion(String question) {
 		this.question = question;
 	}
@@ -59,5 +65,6 @@ public class Question {
 	public String getChoiceD() {
 		return choiceD;
 	}
+	
 
 }

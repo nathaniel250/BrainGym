@@ -7,7 +7,8 @@
 <title>Add Question</title>
 </head>
 <body>
-<form action="insertQuestion" method="post">
+<form action="insertQuestion?quizid=${quizid}" method="post">
+	<input type="hidden" name="quizid" value=${quizid }>
 <table>  
      <tr>  
       <td>Question:</td>  

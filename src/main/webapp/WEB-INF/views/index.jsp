@@ -4,14 +4,34 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Questions</title>
+<title>Welcome</title>
 </head>
 <body>
-    <h1>List of All Question</h1>
-    <ul>
-        <c:forEach var="q" items="${questions}">
-            <li>${q.qid} - ${q.question} - ${q.answer} - ${q.choiceA} - ${q.choiceB} - ${q.choiceC} - ${q.choiceD}</li>
-        </c:forEach>
-    </ul>
+<form action="quizList" method="post">
+<table>  
+     <tr>  
+      <td>Category:</td>  
+      <td>
+	    <select name="categoryid">
+	      <option value=0 selected="selected">*Please Select a Category*</option>
+		  <c:forEach var="c" items="${categories}">
+		  	<option value="${c.categoryid }">${c.category}</option>
+		  </c:forEach>
+		</select>
+	  </td>  
+     </tr>
+     <tr>  
+      <td>Tag:</td>
+      <td><input type="text" name="tag"></td>
+      </tr>
+     
+     <tr>  
+      <td><input type="submit" value="Search"></td>  
+     </tr>
+</table>
+</form>
+<form action="addQuiz">
+	    <input type="submit" value="Add Quiz">
+</form>
 </body>
 </html>
