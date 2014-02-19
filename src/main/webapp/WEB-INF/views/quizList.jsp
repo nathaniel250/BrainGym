@@ -10,7 +10,16 @@
     <h1>List of All Quizzes</h1>
     <ul>
         <c:forEach var="qz" items="${quizzes}">
-           <li><a href="questionList?quizid=${qz.qzid}">${qz.qzid} - ${qz.title} - ${qz.catid }</a></li>
+           	<li><a href="questionList?quizid=${qz.qzid}">${qz.qzid} - ${qz.title} - ${qz.catid }</a>
+           		<form action="editQuiz">
+	           	<input type="hidden" name="qzid" value=${qz.qzid }>
+	           	<input type="submit" value="Edit">
+	           	</form>
+	           	<form action="deleteQuiz">
+	           	<input type="hidden" name="qzid" value=${qz.qzid }>
+	           	<input type="submit" value="Delete">
+	           	</form>
+           	</li>
             
         </c:forEach>
     </ul>

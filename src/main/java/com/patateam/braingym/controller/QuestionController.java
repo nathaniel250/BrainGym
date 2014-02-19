@@ -46,7 +46,13 @@ public class QuestionController {
 		  return "redirect:/questionList?quizid="+qzid;
 	  }
 	  
-	  
+	  @RequestMapping(value = "/deleteQuestion", method = RequestMethod.GET)
+	  public String deleteQuiz(Model model, @RequestParam long qid){
+		  Question question = questionDAO.find(qid);
+		  questionDAO.deleteQuestion(qid);
+		  long qzid = question.getQzid();
+		  return "redirect:/questionList?quizid="+qzid;
+	  }
 	  
 	  
 }

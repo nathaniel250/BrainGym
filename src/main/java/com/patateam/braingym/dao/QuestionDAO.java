@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.patateam.braingym.model.Question;
+import com.patateam.braingym.model.Quiz;
 
 @Repository
 @SuppressWarnings({"unchecked", "rawtypes"})
@@ -24,6 +25,24 @@ public class QuestionDAO {
 	@Transactional
 	public void addQuestion(Question question){
 		sessionFactory.getCurrentSession().save(question);
+	}
+	
+	@Transactional
+	public void deleteQuestion(long qid){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("delete Question where qid = :qid");
+		query.setParameter("qid", qid);
+		query.executeUpdate();
+	}
+	
+	@Transactional
+	public Question find(long qid) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Question where qid =:qid");
+		query.setParameter("qid", qid);
+		List<Question> questions = query.list();
+		Question question = questions.get(0);
+		return question;
 	}
 	 
 	@Transactional

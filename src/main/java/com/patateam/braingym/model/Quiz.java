@@ -11,8 +11,13 @@ public class Quiz {
 	@Id @GeneratedValue private long qzid;
 	//private String category;
 	//private String tag;
-	private long catid;
-	private String title;
+	private long catid = -1;
+	private String title = "noobs";
+	
+	public Quiz(){
+		catid=0;
+		title = "noobs";
+	}
 	public long getQzid() {
 		return qzid;
 	}

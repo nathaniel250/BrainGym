@@ -5,17 +5,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add Question</title>
+<title>Edit Quiz</title>
 </head>
 <body>
-<form action="insertQuiz" method="post">
+<form action="updateQuiz" method="post">
+<input type="hidden" name="qzid" value=${quiz.qzid }>
 <table>  
      <tr>  
       <td>Category:</td>  
       <td>
 	    <select id="categoryid" name="categoryid">
 		  <c:forEach var="c" items="${categories}">
-		  	<option value="${c.categoryid }">${c.category}</option>
+		  	<c:choose>
+		  		<c:when test="${c.categoryid == quiz.catid }">
+		  			<option value="${c.categoryid }" selected="selected">${c.category}</option>
+		  		</c:when>
+		  		<c:otherwise>
+		  			<option value="${c.categoryid }">${c.category}</option>
+		  		</c:otherwise>
+		  		
+		  	</c:choose>
 		  </c:forEach>
 		</select>
 	  </td>  
@@ -28,10 +37,10 @@
      <tr>  
      <tr>  
       <td>Title:</td>  
-      <td><input type="text" name="title"></td>  
+      <td><input type="text" name="title" value="${quiz.title }"></td>  
      </tr>
      <tr>  
-      <td><input type="submit" value="Create"></td>  
+      <td><input type="submit" value="Done Editing"></td>  
      </tr>
 </table>
 </form>

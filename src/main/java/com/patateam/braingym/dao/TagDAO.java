@@ -2,12 +2,14 @@ package com.patateam.braingym.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.patateam.braingym.model.Quiz;
 import com.patateam.braingym.model.Tag;
 
 
@@ -20,6 +22,21 @@ public class TagDAO {
 	public void addTag(Tag tag){
 		sessionFactory.getCurrentSession().save(tag);
 	}
+	
+	@Transactional
+	public Tag find(String tagname){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Tag where tag =:tag");
+		query.setParameter("tag", tagname);
+		List<Tag> tags = query.list();
+		if(!tags.isEmpty()){
+			Tag tag = tags.get(0);
+			return tag;
+		}
+		return null;
+		
+	}
+	
 	@Transactional
 	public List<Tag> findAll() {
 		Session session = sessionFactory.getCurrentSession();

@@ -11,7 +11,12 @@
     <p>${quizid}</p>
     <ul>
         <c:forEach var="q" items="${questions}">
-            <li>${q.qid} - ${q.question} - ${q.answer} - ${q.choiceA} - ${q.choiceB} - ${q.choiceC} - ${q.choiceD}</li>
+            <li>${q.qid} - ${q.question} - ${q.answer} - ${q.choiceA} - ${q.choiceB} - ${q.choiceC} - ${q.choiceD}
+            	<form action="deleteQuestion">
+	            <input type="hidden" name="qid" value=${q.qid }>
+	            <input type="submit" value="Delete">
+	            </form>
+            </li>
         </c:forEach>
     </ul>
     <form action="addQuestion">
