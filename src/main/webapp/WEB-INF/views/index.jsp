@@ -33,5 +33,9 @@
 <form action="addQuiz">
 	    <input type="submit" value="Add Quiz">
 </form>
+
+<form action="tagList">
+	    <input type="submit" value="See Tag List">
+</form>
 </body>
 </html>

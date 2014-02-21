@@ -1,5 +1,6 @@
 package com.patateam.braingym.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -61,6 +62,7 @@ public class QuizController {
 	    
 	    return "quizList";
 	  }
+	  
 	  @RequestMapping(value = "/addQuiz", method = RequestMethod.GET)
 	  public String addQuiz(Model model){
 		  List<Category> categories = categoryDAO.findAll();
@@ -86,6 +88,7 @@ public class QuizController {
 			  }
 			  else{
 				  
+				  
 				  quizTagDAO.addQuizTag(quiz.getQzid(), tagOld.getTagid());
 			  }
 		  }
@@ -96,8 +99,17 @@ public class QuizController {
 	  public String editQuiz(Model model, @RequestParam long qzid){
 		  Quiz quiz = quizDAO.find(qzid);
 		  List<Category> categories = categoryDAO.findAll();
+		  List<Long> tagids = quizTagDAO.findTagId(qzid);
+		  List<Tag> tags = new ArrayList<Tag>();
+		  for(long tagid: tagids){
+			  Tag tag = tagDAO.find(tagid);
+			  tags.add(tag);
+			  logger.info("Welcome home! The client tag is {}.", tag);
+		  }
+		  model.addAttribute("tags", tags);
 		  model.addAttribute("categories", categories);
 		  model.addAttribute("quiz", quiz);
+		  
 		  return "editQuiz";
 	  }
 	  
@@ -106,16 +118,39 @@ public class QuizController {
 		  String tagvalues[] = tags.split(",");
 		  Tag tag = new Tag();
 		  int i=0;
+		  List<Long> tagids = quizTagDAO.findTagId(qzid);
+		  List<String> oldTags = new ArrayList<String>();
+		  for(long tagid: tagids){
+			  Tag temp = tagDAO.find(tagid);
+			  oldTags.add(temp.getTag());
+		  }
+		  
+		  for(i=0;i<tagvalues.length;i++){
+			  if(oldTags.contains(tagvalues[i])){
+				  oldTags.remove(tagvalues[i]);
+				  tagvalues[i] = "";
+			  }
+		  }
+		  for(String oldtag: oldTags){
+			  quizTagDAO.deleteQuizTag(qzid, tagDAO.find(oldtag).getTagid());
+		  }
+		  
 		  quiz.setCatid(categoryid);
 		  quiz.setQzid(qzid);
 		  quizDAO.updateQuiz(quiz); 
 		  for(i=0;i<tagvalues.length;i++){
-			  Tag tagOld = tagDAO.find(tagvalues[i]);
-			  if(tagOld == null){
-				  tag.setTag(tagvalues[i]);
-				  tagDAO.addTag(tag);//May problema pa sa update
+			  if(!tagvalues[i].equals("")){
+				  Tag temp = tagDAO.find(tagvalues[i]);
+				  if(temp==null){
+					  tag.setTag(tagvalues[i]);
+					  tagDAO.addTag(tag);
+					  quizTagDAO.addQuizTag(qzid, tag.getTagid());
+				  }
+				  else{
+					  quizTagDAO.addQuizTag(qzid, temp.getTagid());
+				  }
+				  
 			  }
-			  
 		  }
 		  return "redirect:/questionList?quizid="+quiz.getQzid();
 	  }

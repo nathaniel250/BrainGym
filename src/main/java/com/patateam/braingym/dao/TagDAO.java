@@ -24,10 +24,40 @@ public class TagDAO {
 	}
 	
 	@Transactional
+	public void deleteTag(long tagid){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("delete Tag where tagid = :tagid");
+		query.setParameter("tagid", tagid);
+		query.executeUpdate();
+		
+	}
+	
+	@Transactional
+	public void editTag(Tag tag){
+		Tag tagToUpdate = find(tag.getTagid());
+		tagToUpdate.setTag(tag.getTag());
+		
+	}
+	
+	@Transactional
 	public Tag find(String tagname){
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Tag where tag =:tag");
 		query.setParameter("tag", tagname);
+		List<Tag> tags = query.list();
+		if(!tags.isEmpty()){
+			Tag tag = tags.get(0);
+			return tag;
+		}
+		return null;
+		
+	}
+	
+	@Transactional
+	public Tag find(long tagid){
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Tag where tagid =:tagid");
+		query.setParameter("tagid", tagid);
 		List<Tag> tags = query.list();
 		if(!tags.isEmpty()){
 			Tag tag = tags.get(0);

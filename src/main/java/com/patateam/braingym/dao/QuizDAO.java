@@ -40,7 +40,6 @@ public class QuizDAO {
 	
 	@Transactional
 	public void updateQuiz(Quiz quiz){
-		Session session = sessionFactory.getCurrentSession();
 		Quiz quizToUpdate = find(quiz.getQzid());
 		quizToUpdate.setCatid(quiz.getCatid()); //nagkakaerror badtrip
 		quizToUpdate.setTitle(quiz.getTitle());

@@ -31,7 +31,7 @@
      </tr>
      <tr>  
       <td>Tags:</td>  
-      <td><input type="text" name="tags"></td>
+      <td><input type="text" name="tags" value="<c:forEach var="tag" items="${tags }"> ${tag.tag } </c:forEach>" ></td>
       <td>*Separate the tags by using comma(",")</td>  
      </tr>
      <tr>  
