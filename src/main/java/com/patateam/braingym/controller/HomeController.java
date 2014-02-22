@@ -42,8 +42,7 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model){
-		List<Category> categories = categoryDAO.findAll();
-	    model.addAttribute("categories", categories);
+		
 		return "index";
 	}
 	

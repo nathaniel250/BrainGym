@@ -39,6 +39,14 @@ public class QuizController {
 	   * which will be resolved into /WEB-INF/index.jsp.
 	   *  See src/main/webapp/WEB-INF/servlet-context.xml
 	   */
+	
+	  @RequestMapping(value="/searchQuiz")
+	  public String searchQuiz(Model model){
+		  List<Category> categories = categoryDAO.findAll();
+		  model.addAttribute("categories", categories);
+		  return "searchQuiz";
+	  }
+	  
 	  @RequestMapping(value = "/quizList", method = RequestMethod.POST)
 	  public String list(@RequestParam(required=false) long categoryid, @RequestParam(required=false) String tag, Model model) {
 		//long catid = category.getCatid();

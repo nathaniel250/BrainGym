@@ -7,7 +7,7 @@
 <title>Add Question</title>
 </head>
 <body>
-<form action="insertQuestion?quizid=${quizid}" method="post">
+<form action="insertQuestion?quizid=${quizid}" method="post" enctype='multipart/form-data'>
 	<input type="hidden" name="quizid" value=${quizid }>
 <table>  
      <tr>  
@@ -34,6 +34,12 @@
       <td>Choice D:</td>  
       <td><input type="text" name="choiceD"></td>  
      </tr>
+     <tr>
+	   <td>Upload Image (Optional): </td>
+	    <td>
+		   <input type="file" name="file" id="file">
+		</td>
+	  </tr>
      <tr>  
       <td><input type="submit" value="Add"></td>  
      </tr>

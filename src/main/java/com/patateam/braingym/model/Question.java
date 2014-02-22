@@ -16,6 +16,7 @@ public class Question {
 	private String choiceB;
 	private String choiceC;
 	private String choiceD;
+	private String image;
 
 	public void setQid(long qid) {
 		this.qid = qid;
@@ -64,6 +65,12 @@ public class Question {
 	}
 	public String getChoiceD() {
 		return choiceD;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 
