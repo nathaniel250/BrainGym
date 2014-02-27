@@ -51,7 +51,7 @@ public class QuizController {
 	  public String list(@RequestParam(required=false) long categoryid, @RequestParam(required=false) String tag, Model model) {
 		//long catid = category.getCatid();
 		if(categoryid!=0 && !tag.isEmpty()){
-			
+			//logger.info("ETO NA ANG TAG: {}",tag);
 			List<Quiz> quizzes = quizDAO.findAll(categoryid, tag);
 		    model.addAttribute("quizzes", quizzes);
 		}
@@ -60,6 +60,7 @@ public class QuizController {
 		    model.addAttribute("quizzes", quizzes);
 		}
 		else if(!tag.isEmpty()){
+			//logger.info("ETO NA ANG TAG: {}",tag);
 			List<Quiz> quizzes = quizDAO.findAll(tag);
 		    model.addAttribute("quizzes", quizzes);
 		}
@@ -88,7 +89,7 @@ public class QuizController {
 		  quizDAO.addQuiz(quiz); 
 		  for(i=0;i<tagvalues.length;i++){
 			  Tag tagOld = tagDAO.find(tagvalues[i]);
-			  logger.info("Welcome {}.", tagOld);
+			  //logger.info("Welcome {}.", tagOld);
 			  if(tagOld == null){
 				  tag.setTag(tagvalues[i]);
 				  tagDAO.addTag(tag);
@@ -112,7 +113,7 @@ public class QuizController {
 		  for(long tagid: tagids){
 			  Tag tag = tagDAO.find(tagid);
 			  tags.add(tag);
-			  logger.info("Welcome home! The client tag is {}.", tag);
+			  //logger.info("Welcome home! The client tag is {}.", tag);
 		  }
 		  model.addAttribute("tags", tags);
 		  model.addAttribute("categories", categories);

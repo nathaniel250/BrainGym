@@ -1,4 +1,4 @@
-package com.patateam.braingym.dao;
+	package com.patateam.braingym.dao;
 
 import java.util.List;
 
@@ -25,6 +25,18 @@ public class QuestionDAO {
 	@Transactional
 	public void addQuestion(Question question){
 		sessionFactory.getCurrentSession().save(question);
+	}
+	
+	@Transactional
+	public void updateQuestion(Question question){
+		Question questionToUpdate = find(question.getQid());
+		questionToUpdate.setAnswer(question.getAnswer()); 
+		questionToUpdate.setQuestion(question.getQuestion());
+		questionToUpdate.setChoiceA(question.getChoiceA());
+		questionToUpdate.setChoiceB(question.getChoiceB());
+		questionToUpdate.setChoiceC(question.getChoiceC());
+		questionToUpdate.setChoiceD(question.getChoiceD());
+		//questionToUpdate.setImage(question.getImage());
 	}
 	
 	@Transactional

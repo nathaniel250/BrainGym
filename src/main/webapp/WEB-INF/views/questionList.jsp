@@ -13,6 +13,11 @@
         <c:forEach var="q" items="${questions}">
             <li>${q.qid} - ${q.question} - ${q.answer} - ${q.choiceA} - ${q.choiceB} - ${q.choiceC} - ${q.choiceD} - ${q.image} <br>
             <img src=${q.image }  width="170" height="150"/>
+            	<form action="editQuestion">
+            	<input type="hidden" name=quizid value=${quizid }> 
+	            <input type="hidden" name="qid" value=${q.qid }>
+	            <input type="submit" value="Edit">
+	            </form>
             	<form action="deleteQuestion">
 	            <input type="hidden" name="qid" value=${q.qid }>
 	            <input type="submit" value="Delete">

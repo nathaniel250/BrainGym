@@ -2,6 +2,7 @@ package com.patateam.braingym.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.patateam.braingym.dao.QuestionDAO;
+import com.patateam.braingym.model.Category;
 import com.patateam.braingym.model.Question;
+import com.patateam.braingym.model.Quiz;
+import com.patateam.braingym.model.Tag;
 
 @Controller
 //@RequestMapping("/")
@@ -44,7 +48,7 @@ public class QuestionController {
 		  
 		  return "addQuestion";
 	  }
-	  @RequestMapping(value = "/insertQuestion", params = "quizid", method = RequestMethod.POST)
+	  @RequestMapping(value = "/insertQuestion", method = RequestMethod.POST)
 	  public String insertQuestion(@RequestParam(value="quizid") long qzid, @RequestParam("file") MultipartFile file, HttpServletResponse httpServletResponse, @ModelAttribute(value="question") Question question, BindingResult result) throws IOException{
 		  if (!file.isEmpty()) {
 			  String path="C:/BrainGym/Quizzes/"+qzid;
@@ -55,6 +59,21 @@ public class QuestionController {
 		  }
 		  question.setQzid(qzid);
 		  questionDAO.addQuestion(question); 
+		  return "redirect:/questionList?quizid="+qzid;
+	  }
+	  
+	  @RequestMapping(value = "/editQuestion", method = RequestMethod.GET)
+	  public String editQuestion(Model model, @RequestParam long qid){
+		  Question question = questionDAO.find(qid);
+		  model.addAttribute("question", question);
+		  return "editQuestion";
+	  }
+	  
+	  @RequestMapping(value = "/updateQuestion", method = RequestMethod.POST)
+	  public String updateQuestion(@ModelAttribute(value="question") Question question, @RequestParam long qid, @RequestParam long qzid, BindingResult result){
+		  question.setQid(qid);
+		  question.setQzid(qzid);
+		  questionDAO.updateQuestion(question);
 		  return "redirect:/questionList?quizid="+qzid;
 	  }
 	  

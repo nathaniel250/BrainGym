@@ -1,0 +1,119 @@
+database: add image column for question table. DEFAULT IS NULL.
+create folder at C and name it "Quizzes"
+delete ALL entries sa Questions table sa db
+
+@RequestMapping(value = "/insertQuestion", params = "quizid", method = RequestMethod.POST)
+	  public String insertQuestion(@RequestParam(value="quizid") long qzid, @RequestParam("file") MultipartFile file, HttpServletResponse httpServletResponse, @ModelAttribute(value="question") Question question, BindingResult result) throws IOException{
+		  if (!file.isEmpty()) {
+			  String path="C:/Quizzes/"+qzid;
+			  new File(path).mkdirs();
+			  File dest = new File(path+"/"+file.getOriginalFilename());
+			  file.transferTo(dest);
+			  question.setImage(path+"/"+file.getOriginalFilename()); 
+		  }
+		  question.setQzid(qzid);
+		  questionDAO.addQuestion(question);
+		  return "redirect:/questionList?quizid="+qzid;
+	  }
+
+	  //QuestionController
+
+
+	  <form action="insertQuestion?quizid=${quizid}" method="post" enctype='multipart/form-data'>
+	  ...
+	  <tr>
+	   <td>Upload Image: </td>
+	    <td>
+		   <input type="file" name="file" id="file">
+		</td>
+	  </tr>
+
+	  //addQuestion
+
+package com.patateam.braingym.model;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "question")
+public class Question {
+	@Id @GeneratedValue private long qid;
+	private long qzid;
+	private String question;
+	private String answer;
+	private String choiceA;
+	private String choiceB;
+	private String choiceC;
+	private String choiceD;
+	private String image;
+
+	public void setQid(long qid) {
+		this.qid = qid;
+	}
+	public long getQid() {
+		return qid;
+	}
+	public long getQzid() {
+		return qzid;
+	}
+	public void setQzid(long qzid) {
+		this.qzid = qzid;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	public String getQuestion() {
+		return question;
+	}
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+	public String getAnswer() {
+		return answer;
+	}
+	public void setChoiceA(String choiceA) {
+		this.choiceA = choiceA;
+	}
+	public String getChoiceA() {
+		return choiceA;
+	}
+	public void setChoiceB(String choiceB) {
+		this.choiceB = choiceB;
+	}
+	public String getChoiceB() {
+		return choiceB;
+	}
+	public void setChoiceC(String choiceC) {
+		this.choiceC = choiceC;
+	}
+	public String getChoiceC() {
+		return choiceC;
+	}
+	public void setChoiceD(String choiceD) {
+		this.choiceD = choiceD;
+	}
+	public String getChoiceD() {
+		return choiceD;
+	}
+	public void setImage(String destination) {
+		this.image=destination;
+	}
+	public String getImage() {
+		return image;
+	}
+
+}
+
+//Question.java
+
+
+
+<li>${q.qid} - ${q.question} - ${q.answer} - ${q.choiceA} - ${q.choiceB}
+${q.choiceC} - ${q.choiceD} - ${q.image}
+<br>
+<img src=${q.image }  width="170" height="150"/>
+            	
+//questionList

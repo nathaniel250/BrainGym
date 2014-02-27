@@ -41,7 +41,7 @@ public class QuizDAO {
 	@Transactional
 	public void updateQuiz(Quiz quiz){
 		Quiz quizToUpdate = find(quiz.getQzid());
-		quizToUpdate.setCatid(quiz.getCatid()); //nagkakaerror badtrip
+		quizToUpdate.setCatid(quiz.getCatid()); 
 		quizToUpdate.setTitle(quiz.getTitle());
 		
 	}
@@ -85,8 +85,9 @@ public class QuizDAO {
 			List<Tag> tags = query.list();
 			if(tags != null){
 				Tag tagOld = tags.get(0);
+				//logger.info("POTEK {}",tagOld.getTagid());
 				Query query2 = session.createQuery("from QuizTag where tagid = :tagid");
-				query.setParameter("tagid", tagOld.getTagid());
+				query2.setParameter("tagid", tagOld.getTagid());
 				List<QuizTag> qztags = query2.list();
 				for(QuizTag qztag: qztags){
 					Query query3 = session.createQuery("from Quiz where qzid = :qzid");

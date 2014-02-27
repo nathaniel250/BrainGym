@@ -1,12 +1,70 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Take Quiz</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Brain Gym - Take Quiz</title>
+    
+	<link href="<c:url value="/resources/css/bootstrap-tagsinput.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
+	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script> 
+	<script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
 </head>
+<!-- 
+<body>
+<div class="container">	 
+	<img src = "<c:url value="/resources/img/Brain-Gym2.png"/>" alt ="">  
+	-->
+	<!-- Static Navbar -->
+	<!-- 
+	<div class="navbar navbar-default">
+	<div class="container-fluid">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+	</div>
+	<div class="navbar-collapse collapse" style="color:005b7f;">
+    	<ul class="nav navbar-nav" >
+        	<li><a href="#">Home</a></li>
+			<li class="active"><a href="#">Take a Quiz</a></li>
+        	<li><a href="#">Something</a></li>
+    	</ul>
+     	-->
+	<!-- </div> --><!--/.nav-collapse -->
+	<!-- </div> --><!--/.container-fluid -->
+	<!-- 
+	</div>
+	<h1> Take a Quiz </h1>	
+	<hr>
+	 -->
+	<!-- Main component for a primary marketing message or call to action -->
+	<!--
+	<div class="span4">
+		<form class="form-search">
+			<div class="input-append" style="margin-left: 30%;margin-right:10%">
+				<input type="text" class="span2" style="width: 50%;">
+				<button type="submit" class="btn">Search for topic</button>
+			</div>
+		</form>
+	</div>
+	<br><br>
+	<div class="col-md-3" style="margin-left:35%;margin-right:35%">
+		<a href="#" class="btn btn-primary btn-lg btn-block btn-huge">or create Own Quiz!</a>
+	</div>
+</div> 
+-->
+
+<!-- NATHAN -->
 <body>
 <form action="result" method="post">
 	<input type="hidden" name="qzid" value=${q.qzid }>
