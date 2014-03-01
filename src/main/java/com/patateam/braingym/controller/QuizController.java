@@ -1,7 +1,10 @@
 package com.patateam.braingym.controller;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.patateam.braingym.dao.CategoryDAO;
+import com.patateam.braingym.dao.CommentDAO;
+import com.patateam.braingym.dao.QuestionDAO;
 import com.patateam.braingym.dao.QuizDAO;
 import com.patateam.braingym.dao.QuizTagDAO;
 import com.patateam.braingym.dao.TagDAO;
 import com.patateam.braingym.model.Category;
+import com.patateam.braingym.model.Comment;
 import com.patateam.braingym.model.Quiz;
 import com.patateam.braingym.model.Tag;
 
@@ -30,6 +36,8 @@ public class QuizController {
 	@Autowired private CategoryDAO categoryDAO;
 	@Autowired private TagDAO tagDAO;
 	@Autowired private QuizTagDAO quizTagDAO;
+	@Autowired private CommentDAO commentDAO;
+	
 	
 	private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
 	  /**
@@ -169,6 +177,19 @@ public class QuizController {
 	  public String deleteQuiz(Model model, @RequestParam long qzid){
 		  quizDAO.deleteQuiz(qzid);
 		  return "redirect:/";
+	  }
+	  
+	  @RequestMapping(value = "/updateCommentQuiz", method = RequestMethod.POST)
+	  public String updateCommentQuiz(Model model,  @ModelAttribute(value="quiz") Quiz quiz, @ModelAttribute(value="comment") Comment comment, @RequestParam(required=false) long qzid){
+		  comment.setQzid(qzid);
+		  commentDAO.addComment(comment);
+		  return "redirect:/questionList?quizid="+qzid;
+	  }
+	  
+	  @RequestMapping(value = "/commentQuiz", method = RequestMethod.GET)
+	  public String commentQuiz(Model model, @RequestParam long qzid){
+		  model.addAttribute("qzid",qzid);
+		  return "commentQuiz";
 	  }
 
 }

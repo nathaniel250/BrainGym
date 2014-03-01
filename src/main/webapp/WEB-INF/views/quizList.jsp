@@ -15,6 +15,19 @@
    		<c:forEach var="qz" items="${quizzes}">
         <li>
         	<a href="questionList?quizid=${qz.qzid}">${qz.qzid} - ${qz.title} - ${qz.catid }</a>
+           	<form action="takeQuiz">
+           		<select name="timer">
+           		<option value="0">Unlimited</option>
+           		<option value="300">5 mins</option>
+           		<option value="600">10 mins</option>
+           		<option value="1800">30 mins</option>
+           		<option value="3600">1 hour</option>
+           		<option value="5400">1 hour 30 mins</option>
+           		<option value="7200">2 hours</option>
+           		</select>
+	        	<input type="hidden" name="qzid" value=${qz.qzid }>
+	           	<input type="submit" value="Take Quiz">
+	       	</form>
            	<form action="editQuiz">
 	        	<input type="hidden" name="qzid" value=${qz.qzid }>
 	           	<input type="submit" value="Edit">

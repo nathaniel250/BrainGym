@@ -14,7 +14,7 @@
             <li>${q.qid} - ${q.question} - ${q.answer} - ${q.choiceA} - ${q.choiceB} - ${q.choiceC} - ${q.choiceD} - ${q.image} <br>
             <img src=${q.image }  width="170" height="150"/>
             	<form action="editQuestion">
-            	<input type="hidden" name=quizid value=${quizid }> 
+            	<input type="hidden" name=qzid value=${quizid }> 
 	            <input type="hidden" name="qid" value=${q.qid }>
 	            <input type="submit" value="Edit">
 	            </form>
@@ -26,8 +26,16 @@
         </c:forEach>
     </ul>
     <form action="addQuestion">
-    	<input type="hidden" name=quizid value=${quizid }> 
+    	<input type="hidden" name="quizid" value=${quizid }> 
 	    <input type="submit" value="Add Question">
 	</form>
+	<form action="commentQuiz">
+   		<input type="hidden" name="qzid" value=${quizid }>
+        <input type="submit" value="Comment">
+   	</form>
+   	<br>COMMENTS
+   	<c:forEach var="c" items="${comments}">
+   		<p>${c.comment}</p>
+   	</c:forEach>
 </body>
 </html>

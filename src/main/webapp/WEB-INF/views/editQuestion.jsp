@@ -37,7 +37,7 @@
    	</tr>
    	<tr>
 	   	<td>Upload Image (Optional): </td>
-	    <td><input type="file" name="file" id="file" value="${question.image }"></td>
+	    <td><input type="file" name="file" id="file"></td>
 	</tr>
    	<tr>  
       	<td><input type="submit" value="Add"></td>  

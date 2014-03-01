@@ -10,7 +10,7 @@
 </head>
 <body>
 	<form action="insertQuestion" method="post" enctype='multipart/form-data'>
-	<input type="hidden" name="quizid" value=${quizid }>
+	<input type="hidden" name="qzid" value=${quizid }>
 	<table>  
    	<tr>  
    		<td>Question:</td>  
