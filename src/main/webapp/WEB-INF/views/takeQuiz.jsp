@@ -15,7 +15,6 @@
     <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
 	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
-	<script src="<c:url value="/resources/js/jquery.playSound.js"/>"></script> 
 	<script src="<c:url value="/resources/js/countdown.js"/>"></script>
 	<script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
 </head>
