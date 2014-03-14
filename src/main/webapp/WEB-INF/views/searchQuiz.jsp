@@ -89,6 +89,9 @@
 	<form action="tagList">
 	    <input type="submit" value="See Tag List">
 	</form>
+	<form action="categoryList">
+	    <input type="submit" value="See Category List">
+	</form>
 	
 </div>	
 </body>

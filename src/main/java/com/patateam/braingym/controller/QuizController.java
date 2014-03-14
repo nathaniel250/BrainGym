@@ -109,7 +109,7 @@ public class QuizController {
 				  quizTagDAO.addQuizTag(quiz.getQzid(), tagOld.getTagid());
 			  }
 		  }
-		  return "redirect:/";
+		  return "redirect:/questionList?quizid="+quiz.getQzid();
 	  }
 	  
 	  @RequestMapping(value = "/editQuiz", method = RequestMethod.GET)

@@ -83,7 +83,7 @@ public class QuizDAO {
 			Query query = session.createQuery("from Tag where tag = :tag");
 			query.setParameter("tag", tagvalues[i]);
 			List<Tag> tags = query.list();
-			if(tags != null){
+			if(!tags.isEmpty()){
 				Tag tagOld = tags.get(0);
 				//logger.info("POTEK {}",tagOld.getTagid());
 				Query query2 = session.createQuery("from QuizTag where tagid = :tagid");
