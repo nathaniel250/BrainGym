@@ -1,28 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<portlet:defineObjects />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 	<script>
-	function loadXMLDoc()
-	{
-		var xmlhttp;
-		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
-		}
-		else {// code for IE6, IE5
-		 	 xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp.onreadystatechange=function() {
-			if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-				document.getElementById("Selector").insertAdjacentHTML("beforeend", xmlhttp.responseText);
-			}
-		}
-		/* TODO: */
-		xmlhttp.open("GET","addQuestion.html",true);
-		xmlhttp.send();
-	}
-	</script>
+	$(document).ready(function() {
+    $(".link1").click(function(event){
+       event.preventDefault();
+       var url =$(this).attr("href");
+       $('#right-pane').load(url);
+		});
+	});
+	</script>	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,8 +31,7 @@
 
 <body>
 <div class="container">
-	<img src = "<c:url value="/resources/img/Brain-Gym2.png"/>" alt ="">
-	<!-- Static navbar -->
+	<img src = "<c:url value="/resources/img/Brain-Gym2.png"/>" class="displayed" alt ="">
 	<div class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -55,44 +44,35 @@
 		</div>
 		<div class="navbar-collapse collapse" style="color:005b7f;">
 			<ul class="nav navbar-nav" >
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Take a Quiz</a></li>
-				<li><a href="#">Create a Quiz</a></li>
-				<li class="active"><a href="#">Search a Quiz</a></li>
-				<li><a href="#">Edit a Quiz</a></li>
+				<li><a href="home" class="link1">Home</a></li>
+				<li><a href="quizList">Take a Quiz</a></li>
+				<li><a href="addQuiz">Create a Quiz</a></li>
+				<li class="active"><a href="searchQuiz">Search a Quiz</a></li>
+				<li><a href="quizList">Edit a Quiz</a></li>
+				<li><a href="tagList">Tag List</a></li>
+				<li><a href="categoryList">Category List</a></li>
 			</ul>
 		</div>
 	</div>
 	</div>
+
 	<h1> Search a Quiz </h1>	
 	<hr>	
-	
 	<form action="quizList" method="post">
 		Search by category:
-		<select name="categoryid">
+		<select class="form-control" id="select" name="categoryid">
 			<option value=0 selected="selected">*Please Select a Category*</option>
 			<c:forEach var="c" items="${categories}">
 				<option value="${c.categoryid }">${c.category}</option>
 			</c:forEach>
 		</select>
 		<br>
-		Search by tag: <input type="text" data-role="tagsinput" name="tag"> Separate tags with enter.
+		Search by tag: <input type="text" data-role="tagsinput" name="tag" placeholder="Separate the tags by enter">
+		<br><br> 
+		<button type="submit" class="btn btn-primary">Search</button>
 		<br> 
-		<input type="submit" value="Search"> 
-		<br> 
 	</form>
-		
-	<form action="addQuiz">
-		<input type="submit" value="Add Quiz">
-	</form>
-	
-	<form action="tagList">
-	    <input type="submit" value="See Tag List">
-	</form>
-	<form action="categoryList">
-	    <input type="submit" value="See Category List">
-	</form>
-	
+	<br>
 </div>	
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.patateam.braingym.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -21,14 +22,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.patateam.braingym.dao.CommentDAO;
 import com.patateam.braingym.dao.QuestionDAO;
-import com.patateam.braingym.model.Category;
 import com.patateam.braingym.model.Comment;
 import com.patateam.braingym.model.Question;
-import com.patateam.braingym.model.Quiz;
-import com.patateam.braingym.model.Tag;
 
 @Controller
-//@RequestMapping("/")
 public class QuestionController {
 	@Autowired private QuestionDAO questionDAO;
 	@Autowired private CommentDAO commentDAO;
@@ -61,7 +58,12 @@ public class QuestionController {
 			  String parameterName = (String) enumeration.nextElement();
 			  if(parameterName.startsWith("Q")) {
 				  //logger.info("{}",req.getParameter(parameterName));
-				  values.add(req.getParameter(parameterName));
+				  if(req.getParameter(parameterName).isEmpty()){
+					  values.add("-- No Answer --");
+				  }
+				  else{
+					  values.add(req.getParameter(parameterName));
+				  }
 			  }
 		  }
 		  List<Question> questions = questionDAO.findAll(qzid);
@@ -75,10 +77,10 @@ public class QuestionController {
 			  }
 		  }
 		  Double percentage = ((double)result/(double)questions.size())*100;
-		  
+		  DecimalFormat df = new DecimalFormat("#.##");
 		  model.addAttribute("result",result);
 		  model.addAttribute("total",questions.size());
-		  model.addAttribute("percentage",percentage);
+		  model.addAttribute("percentage",df.format(percentage));
 		  return "resultQuiz";
 	  }
 	  
@@ -95,7 +97,6 @@ public class QuestionController {
 	  @RequestMapping(value = "/addQuestion", params = "quizid", method = RequestMethod.GET)
 	  public String addQuestion(@RequestParam(value="quizid", required=false) long qzid, Model model){
 		  model.addAttribute("quizid", qzid);
-		  
 		  return "addQuestion";
 	  }
 	  @RequestMapping(value = "/insertQuestion", method = RequestMethod.POST)
@@ -135,10 +136,10 @@ public class QuestionController {
 	  }
 	  
 	  @RequestMapping(value = "/deleteQuestion", method = RequestMethod.GET)
-	  public String deleteQuiz(Model model, @RequestParam long qid){
+	  public String deleteQestion(Model model, @RequestParam long qid){
 		  Question question = questionDAO.find(qid);
-		  questionDAO.deleteQuestion(qid);
 		  long qzid = question.getQzid();
+		  questionDAO.deleteQuestion(qid);
 		  return "redirect:/questionList?quizid="+qzid;
 	  }
 	  

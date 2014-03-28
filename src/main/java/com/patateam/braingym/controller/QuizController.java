@@ -87,6 +87,13 @@ public class QuizController {
 		  return "addQuiz";
 	  }
 	  
+	  @RequestMapping(value = "/quizList", method = RequestMethod.GET)
+	  public String quizList(Model model){
+			List<Quiz> quizzes = quizDAO.findAll();
+			model.addAttribute("quizzes", quizzes);
+		  return "quizList";
+	  }
+	  
 	  @RequestMapping(value = "/insertQuiz", method = RequestMethod.POST)
 	  public String insertQuiz(@ModelAttribute(value="quiz") Quiz quiz, @RequestParam long categoryid, @RequestParam String tags, BindingResult result){
 		  //long catid = category.getCatid();
@@ -176,7 +183,7 @@ public class QuizController {
 	  @RequestMapping(value = "/deleteQuiz", method = RequestMethod.GET)
 	  public String deleteQuiz(Model model, @RequestParam long qzid){
 		  quizDAO.deleteQuiz(qzid);
-		  return "redirect:/";
+		  return "redirect:/searchQuiz";
 	  }
 	  
 	  @RequestMapping(value = "/updateCommentQuiz", method = RequestMethod.POST)

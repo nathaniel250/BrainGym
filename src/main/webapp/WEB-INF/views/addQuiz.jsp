@@ -1,71 +1,84 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<script>
-	function loadXMLDoc() {
-		var xmlhttp;
-		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
-			xmlhttp=new XMLHttpRequest();
-		}
-		else {// code for IE6, IE5
-			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-		}
-		xmlhttp.onreadystatechange=function() {
-		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
-			document.getElementById("Selector").insertAdjacentHTML("beforeend", xmlhttp.responseText);
-		}
-		}
-		xmlhttp.open("GET","addQuestion2.html",true);
-		xmlhttp.send();
-	}
+		$(document).ready(function() {
+	    $(".link1").click(function(event){
+	       event.preventDefault();
+	       var url =$(this).attr("href");
+	       $('#right-pane').load(url);
+			});
+		});
 	</script>
-    <meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Brain Gym - Create Quiz</title>
 
     <!-- Bootstrap core CSS -->
-	<script src="jquery.min.js"></script> 
-	<script src="bootstrap-tagsinput.js"></script>
-	<link rel="stylesheet" href="bootstrap-tagsinput.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap-theme.min.css">
-	<script type="text/javascript" src="jquery.min.js"></script>
-	<script src="bootstrap.min.js"></script>
-    <!-- Custom styles for this template -->
-    <link href="navbar.css" rel="stylesheet">
-</head>
+	<link href="<c:url value="/resources/css/bootstrap-tagsinput.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"/>
+    <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
+	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
+	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script> 
+	<script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
+  </head>
+  
+  
 <body>
-	<form action="insertQuiz" method="post">
-	<table>  
-    <tr>  
-   		<td>Category:</td>  
-      	<td>
-	    	<select id="categoryid" name="categoryid">
-		  	<c:forEach var="c" items="${categories}">
-		  		<option value="${c.categoryid }">${c.category}</option>
-		  	</c:forEach>
-			</select>
-	  	</td>  
- 	</tr>
-   	<tr>  
-    	<td>Tags:</td>  
-      	<td><input type="text" name="tags"></td>
-      	<td>*Separate the tags by using comma(",")</td>  
- 	</tr>
-   	<tr>  
- 	<tr>  
-  		<td>Title:</td>  
-  		<td><input type="text" name="title"></td>  
-   	</tr>
-    <tr>  
-      	<td><input type="submit" value="Create"></td>  
-  	</tr>
-	</table>
-	</form>
+	<div class="container">
+		<img src = "<c:url value="/resources/img/Brain-Gym2.png"/>" class="displayed" alt ="">
+		<div class="navbar navbar-default" role="navigation">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+
+					<div class="navbar-collapse collapse" style="color:005b7f;">
+						<ul class="nav navbar-nav" >
+							<li><a href="home" class="link1">Home</a></li>
+							<li><a href="quizList">Take a Quiz</a></li>
+							<li class="active"><a href="addQuiz">Create a Quiz</a></li>
+							<li><a href="searchQuiz">Search a Quiz</a></li>
+							<li><a href="quizList">Edit a Quiz</a></li>
+							<li><a href="tagList">Tag List</a></li>
+							<li><a href="categoryList">Category List</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		
+		<h1> Create a Quiz </h1>
+		<hr>	
+		<form action="insertQuiz" method="post">
+			<div class="form-group">
+			  <label class="control-label" for="inputSmall">Title:</label>
+			  <input class="form-control input-sm" name="title" type="text" id="inputSmall">
+			</div>
+
+			Category: 
+				<select class="form-control" id="select" name="categoryid">
+					<c:forEach var="c" items="${categories}">
+					<option value="${c.categoryid }">${c.category}</option>
+					</c:forEach>
+				</select><br><br>
+				   
+			Tags:
+				<input type="text" data-role="tagsinput" name="tags" placeholder="Separate the tags by enter">
+				<br><br> 	
+
+			<button type="submit" class="btn btn-primary">Create</button>		 
+		</form>
+	</div>
+
 </body>
 </html>
