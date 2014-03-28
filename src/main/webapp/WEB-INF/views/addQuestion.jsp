@@ -82,6 +82,10 @@
 		<div class="form-group">
 		  <label class="control-label" for="inputSmall">Choice D</label>
 		  <input class="form-control input-sm" name="choiceD" type="text" id="inputSmall">
+		</div>
+		<div class="form-group">
+		  <label class="control-label" for="inputSmall">Choice E</label>
+		  <input class="form-control input-sm" name="choiceE" type="text" id="inputSmall">
 		</div> 
 
 		<h6> Upload image (optional) </h6>	  

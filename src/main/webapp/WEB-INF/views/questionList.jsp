@@ -75,10 +75,11 @@
 			Choice A: ${q.choiceA} <br> 
 			Choice B: ${q.choiceB} <br> 
 			Choice C: ${q.choiceC} <br> 
-			Choice D: ${q.choiceD} <br> 
+			Choice D: ${q.choiceD} <br>
+			Choice E: ${q.choiceE} <br> 
 			Image file name: ${q.image} 
 			<br>
-            <img src=${q.image }  width="170" height="150"/>
+            <img src="file://${q.image }"  width="170" height="150">
 			<br>
 			<ul class = "list-inline">
 			<li> 	

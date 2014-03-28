@@ -36,6 +36,7 @@ public class QuestionDAO {
 		questionToUpdate.setChoiceB(question.getChoiceB());
 		questionToUpdate.setChoiceC(question.getChoiceC());
 		questionToUpdate.setChoiceD(question.getChoiceD());
+		questionToUpdate.setChoiceE(question.getChoiceE());
 		questionToUpdate.setImage(question.getImage());
 	}
 	

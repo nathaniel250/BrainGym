@@ -33,10 +33,12 @@
 		<div class="navbar-collapse collapse" style="color:005b7f;">
 			<ul class="nav navbar-nav" >
 				<li><a href="home" class="link1">Home</a></li>
-				<li class="active"><a href="searchQuiz">Take a Quiz</a></li>
+				<li class="active"><a href="quizList">Take a Quiz</a></li>
 				<li><a href="addQuiz">Create a Quiz</a></li>
 				<li><a href="searchQuiz">Search a Quiz</a></li>
 				<li><a href="quizList">Edit a Quiz</a></li>
+				<li><a href="tagList">Tag List</a></li>
+				<li><a href="categoryList">Category List</a></li>
 			</ul>
 		</div>
 	</div>
@@ -80,6 +82,11 @@
 					<div class="radio">
 						<label>
 							<input type="radio" name="Q${q.qid }" value="${q.choiceD }">${q.choiceD }
+						</label>
+					</div>
+					<div class="radio">
+						<label>
+							<input type="radio" name="Q${q.qid }" value="${q.choiceE }">${q.choiceE }
 						</label>
 					</div>
 					<br>

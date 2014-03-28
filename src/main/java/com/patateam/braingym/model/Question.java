@@ -16,6 +16,7 @@ public class Question {
 	private String choiceB;
 	private String choiceC;
 	private String choiceD;
+	private String choiceE;
 	//private String choiceE;
 	
 	private String image;
@@ -81,5 +82,11 @@ public class Question {
 		this.choiceE = choiceE;
 	}
 	*/
+	public String getChoiceE() {
+		return choiceE;
+	}
+	public void setChoiceE(String choiceE) {
+		this.choiceE = choiceE;
+	}
 
 }
