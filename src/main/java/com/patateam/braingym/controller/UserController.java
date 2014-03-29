@@ -41,6 +41,13 @@ public class UserController {
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
 	public String profile(Model model){
 		User user =  userDAO.find(0);
+		List<QuizHistory> quizzes = quizHistoryDAO.findAll(0);
+		float totalGrade = 0;
+		for(QuizHistory quiz: quizzes){
+			totalGrade = totalGrade + quiz.getGrade();
+		}
+		totalGrade = totalGrade/(float)quizzes.size();
+		user.setGrade(totalGrade);
 		model.addAttribute("user", user);
 		return "profile";
 	}

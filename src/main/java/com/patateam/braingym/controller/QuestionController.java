@@ -28,15 +28,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.patateam.braingym.dao.CommentDAO;
 import com.patateam.braingym.dao.QuestionDAO;
 import com.patateam.braingym.dao.QuizDAO;
+import com.patateam.braingym.dao.QuizHistoryDAO;
 import com.patateam.braingym.model.Answer;
 import com.patateam.braingym.model.Comment;
 import com.patateam.braingym.model.Question;
+import com.patateam.braingym.model.QuizHistory;
 
 @Controller
 public class QuestionController {
 	@Autowired private QuestionDAO questionDAO;
 	@Autowired private CommentDAO commentDAO;
 	@Autowired private QuizDAO quizDAO;
+	@Autowired private QuizHistoryDAO quizHistoryDAO;
 	private static final Logger logger = LoggerFactory.getLogger(QuizController.class);
 	  /**
 	   * This handler method is invoked when
@@ -97,6 +100,12 @@ public class QuestionController {
 		  model.addAttribute("result",result);
 		  model.addAttribute("total",questions.size());
 		  model.addAttribute("percentage",df.format(percentage));
+		  
+		  QuizHistory qh = new QuizHistory();
+		  qh.setGrade(percentage.floatValue());
+		  qh.setQuizid(qzid);
+		  qh.setQuiztitle(quizDAO.find(qzid).getTitle());
+		  quizHistoryDAO.addQuizHistory(qh);
 		  return "resultQuiz";
 	  }
 	  
