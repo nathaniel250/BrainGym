@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<portlet:defineObjects />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="en">
 <head>
 	<script>
 	$(document).ready(function() {
@@ -22,7 +21,7 @@
     
 	<link href="<c:url value="/resources/css/bootstrap-tagsinput.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"/>
-    <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
+    <!--<link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>-->
 	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script> 
 	<script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
@@ -45,12 +44,15 @@
 		<div class="navbar-collapse collapse" style="color:005b7f;">
 			<ul class="nav navbar-nav" >
 				<li><a href="home" class="link1">Home</a></li>
+				<li><a href="profile">Profile</a></li>
 				<li><a href="quizList">Take a Quiz</a></li>
 				<li><a href="addQuiz">Create a Quiz</a></li>
 				<li class="active"><a href="searchQuiz">Search a Quiz</a></li>
 				<li><a href="quizList">Edit a Quiz</a></li>
 				<li><a href="tagList">Tag List</a></li>
 				<li><a href="categoryList">Category List</a></li>
+				<li><a href="addForum">Create a Forum</a></li>
+				<li><a href="searchForum">Search a Forum</a></li>
 			</ul>
 		</div>
 	</div>
@@ -67,12 +69,13 @@
 			</c:forEach>
 		</select>
 		<br>
-		Search by tag: <input type="text" data-role="tagsinput" name="tag" placeholder="Separate the tags by enter">
+		Search by tag: <input type="text" data-role="tagsinput" name="tag" placeholder="Separate tags with enter."> 
 		<br><br> 
 		<button type="submit" class="btn btn-primary">Search</button>
 		<br> 
 	</form>
 	<br>
+		
 </div>	
 </body>
 </html>

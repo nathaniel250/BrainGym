@@ -22,7 +22,7 @@
     <!-- Bootstrap core CSS -->
 	<link href="<c:url value="/resources/css/bootstrap-tagsinput.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"/>
-    <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
+    <!-- link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/-->
 	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script> 
 	<script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
@@ -46,19 +46,23 @@
 					<div class="navbar-collapse collapse" style="color:005b7f;">
 						<ul class="nav navbar-nav" >
 							<li><a href="home" class="link1">Home</a></li>
+							<li><a href="profile">Profile</a></li>
 							<li><a href="quizList">Take a Quiz</a></li>
 							<li class="active"><a href="addQuiz">Create a Quiz</a></li>
 							<li><a href="searchQuiz">Search a Quiz</a></li>
 							<li><a href="quizList">Edit a Quiz</a></li>
 							<li><a href="tagList">Tag List</a></li>
 							<li><a href="categoryList">Category List</a></li>
+							<li><a href="addForum">Create a Forum</a></li>
+							<li><a href="searchForum">Search a Forum</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		
 		<h1> Create a Quiz </h1>
-		<hr>	
+		<hr>
+		<b>${warning}</b>	
 		<form action="insertQuiz" method="post">
 			<div class="form-group">
 			  <label class="control-label" for="inputSmall">Title:</label>
@@ -74,7 +78,7 @@
 				   
 			Tags:
 				<input type="text" data-role="tagsinput" name="tags" placeholder="Separate the tags by enter">
-				<br><br> 	
+				<br><br>
 
 			<button type="submit" class="btn btn-primary">Create</button>		 
 		</form>

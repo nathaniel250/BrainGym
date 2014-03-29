@@ -21,7 +21,7 @@
     
 	<link href="<c:url value="/resources/css/bootstrap-tagsinput.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"/>
-    <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
+    <!-- link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/-->
 	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script> 
 	<script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
@@ -44,13 +44,16 @@
 					<div class="navbar-collapse collapse navbar-responsive-collapse">
     					<ul class="nav navbar-nav">
 							<li><a href="home" class="link1">Home</a></li>
+							<li><a href="profile">Profile</a></li>
 							<li><a href="quizList">Take a Quiz</a></li>
 							<li><a href="addQuiz">Create a Quiz</a></li>
 							<li><a href="searchQuiz">Search a Quiz</a></li>
 							<li class="active"><a href="quizList">Edit a Quiz</a></li>
 							<li><a href="tagList">Tag List</a></li>
 							<li><a href="categoryList">Category List</a></li>
-						</url>	
+							<li><a href="addForum">Create a Forum</a></li>
+							<li><a href="searchForum">Search a Forum</a></li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -58,17 +61,16 @@
     
 	<ul class="breadcrumb">
 		<li><a href="quizList">Quiz List</a></li>
-		<li class="active">questions of ${quiz.title}</li>
+		<li class="active">questions of ${quiztitle}</li>
 	</ul>
 			
 	<hr>
 
-    <h3>Quiz title: ${quiz.title} </h3>
-	<h4>Quiz ID: ${quizid}</h4>
+    <h3>Quiz title: ${quiztitle} </h3>
     <c:forEach var="q" items="${questions}">
 	<div class="panel panel-default">
 	  <div class="panel-heading">
-		<h3 class="panel-title"> ${q.qid} - ${q.question} </h3>
+		<h3 class="panel-title">${q.question} </h3>
 	  </div>
         <div class="panel-body">
             Answer: ${q.answer} <br> 
@@ -77,9 +79,12 @@
 			Choice C: ${q.choiceC} <br> 
 			Choice D: ${q.choiceD} <br>
 			Choice E: ${q.choiceE} <br> 
-			Image file name: ${q.image} 
 			<br>
-            <img src="file://${q.image }"  width="170" height="150">
+			<c:if test="${q.image != null}">
+				Image file name: ${q.image}
+				<br>
+				<img src="<c:url value="${q.image }"/>" width="170" height="150">
+			</c:if>
 			<br>
 			<ul class = "list-inline">
 			<li> 	
@@ -96,6 +101,7 @@
 	            </form>
 			</li>
 			</ul>
+			
 		</div>
 		</div>	
         </c:forEach>

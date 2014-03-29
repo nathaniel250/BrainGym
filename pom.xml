@@ -15,6 +15,13 @@
 	</properties>
 	
 	<dependencies>
+		<!-- UPortal -->
+		<dependency>
+			<groupId>org.jasypt</groupId>
+			<artifactId>jasypt</artifactId>
+			<version>1.9.1</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

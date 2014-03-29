@@ -1,5 +1,7 @@
 package com.patateam.braingym.controller;
 
+import org.jasypt.util.text.BasicTextEncryptor;
+import org.springframework.web.bind.annotation.CookieValue;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -76,7 +78,9 @@ public class QuizController {
 			List<Quiz> quizzes = quizDAO.findAll();
 		    model.addAttribute("quizzes", quizzes);
 		}
-	    
+		List<Category> categories = categoryDAO.findAll();
+		model.addAttribute("categories", categories);
+		
 	    return "quizList";
 	  }
 	  
@@ -84,6 +88,7 @@ public class QuizController {
 	  public String addQuiz(Model model){
 		  List<Category> categories = categoryDAO.findAll();
 		  model.addAttribute("categories", categories);
+		  model.addAttribute("warning", "Title is required.");
 		  return "addQuiz";
 	  }
 	  
@@ -91,32 +96,40 @@ public class QuizController {
 	  public String quizList(Model model){
 			List<Quiz> quizzes = quizDAO.findAll();
 			model.addAttribute("quizzes", quizzes);
+			List<Category> categories = categoryDAO.findAll();
+			model.addAttribute("categories", categories);
 		  return "quizList";
 	  }
 	  
 	  @RequestMapping(value = "/insertQuiz", method = RequestMethod.POST)
 	  public String insertQuiz(@ModelAttribute(value="quiz") Quiz quiz, @RequestParam long categoryid, @RequestParam String tags, BindingResult result){
 		  //long catid = category.getCatid();
-		  String tagvalues[] = tags.split(",");
-		  Tag tag = new Tag();
-		  int i=0;
-		  quiz.setCatid(categoryid);
-		  quizDAO.addQuiz(quiz); 
-		  for(i=0;i<tagvalues.length;i++){
-			  Tag tagOld = tagDAO.find(tagvalues[i]);
-			  //logger.info("Welcome {}.", tagOld);
-			  if(tagOld == null){
-				  tag.setTag(tagvalues[i]);
-				  tagDAO.addTag(tag);
-				  quizTagDAO.addQuizTag(quiz.getQzid(), tag.getTagid());
+		  quiz.setTitle(quiz.getTitle().trim());
+		  if(!quiz.getTitle().isEmpty()){
+			  String tagvalues[] = tags.split(",");
+			  Tag tag = new Tag();
+			  int i=0;
+			  quiz.setCatid(categoryid);
+			  quizDAO.addQuiz(quiz); 
+			  for(i=0;i<tagvalues.length;i++){
+				  Tag tagOld = tagDAO.find(tagvalues[i].trim());
+				  //logger.info("Welcome {}.", tagOld);
+				  if(tagOld == null){
+					  tag.setTag(tagvalues[i].trim());
+					  tagDAO.addTag(tag);
+					  quizTagDAO.addQuizTag(quiz.getQzid(), tag.getTagid());
+				  }
+				  else{
+					  
+					  
+					  quizTagDAO.addQuizTag(quiz.getQzid(), tagOld.getTagid());
+				  }
 			  }
-			  else{
-				  
-				  
-				  quizTagDAO.addQuizTag(quiz.getQzid(), tagOld.getTagid());
-			  }
+			  return "redirect:/questionList?quizid="+quiz.getQzid();
 		  }
-		  return "redirect:/questionList?quizid="+quiz.getQzid();
+		  return "redirect:/addQuiz";
+		  
+		  
 	  }
 	  
 	  @RequestMapping(value = "/editQuiz", method = RequestMethod.GET)
@@ -133,50 +146,59 @@ public class QuizController {
 		  model.addAttribute("tags", tags);
 		  model.addAttribute("categories", categories);
 		  model.addAttribute("quiz", quiz);
-		  
+		  model.addAttribute("warning", "Title is required.");
 		  return "editQuiz";
 	  }
 	  
 	  @RequestMapping(value = "/updateQuiz", method = RequestMethod.POST)
 	  public String updateQuiz(@ModelAttribute(value="quiz") Quiz quiz, @RequestParam long qzid, @RequestParam long categoryid, @RequestParam String tags, BindingResult result){
-		  String tagvalues[] = tags.split(",");
-		  Tag tag = new Tag();
-		  int i=0;
-		  List<Long> tagids = quizTagDAO.findTagId(qzid);
-		  List<String> oldTags = new ArrayList<String>();
-		  for(long tagid: tagids){
-			  Tag temp = tagDAO.find(tagid);
-			  oldTags.add(temp.getTag());
-		  }
-		  
-		  for(i=0;i<tagvalues.length;i++){
-			  if(oldTags.contains(tagvalues[i])){
-				  oldTags.remove(tagvalues[i]);
-				  tagvalues[i] = "";
+			quiz.setTitle(quiz.getTitle().trim());
+		  	if(!quiz.getTitle().isEmpty()){
+			  String tagvalues[] = tags.split(",");
+			  Tag tag = new Tag();
+			  int i=0;
+			  List<Long> tagids = quizTagDAO.findTagId(qzid);
+			  List<String> oldTags = new ArrayList<String>();
+			  for(long tagid: tagids){
+				  Tag temp = tagDAO.find(tagid);
+				  //logger.info("tag old: {}",temp.getTag());
+				  oldTags.add(temp.getTag());
 			  }
-		  }
-		  for(String oldtag: oldTags){
-			  quizTagDAO.deleteQuizTag(qzid, tagDAO.find(oldtag).getTagid());
-		  }
-		  
-		  quiz.setCatid(categoryid);
-		  quiz.setQzid(qzid);
-		  quizDAO.updateQuiz(quiz); 
-		  for(i=0;i<tagvalues.length;i++){
-			  if(!tagvalues[i].equals("")){
-				  Tag temp = tagDAO.find(tagvalues[i]);
-				  if(temp==null){
-					  tag.setTag(tagvalues[i]);
-					  tagDAO.addTag(tag);
-					  quizTagDAO.addQuizTag(qzid, tag.getTagid());
+			  
+			  for(i=0;i<tagvalues.length;i++){
+				  //logger.info("potek tag old: 1{}2",oldTags.get(0));
+				  //logger.info("potek tag old: 1{}2",tagvalues[i]);
+				  if(oldTags.contains(tagvalues[i].trim())){
+					  oldTags.remove(tagvalues[i].trim());
+					  //logger.info("potek tag old: {}",oldTags.remove(tagvalues[i]));
+					  tagvalues[i] = "";
 				  }
-				  else{
-					  quizTagDAO.addQuizTag(qzid, temp.getTagid());
-				  }
-				  
 			  }
-		  }
-		  return "redirect:/questionList?quizid="+quiz.getQzid();
+			  for(String oldtag: oldTags){
+				  quizTagDAO.deleteQuizTag(qzid, tagDAO.find(oldtag).getTagid());
+			  }
+			  
+			  quiz.setCatid(categoryid);
+			  quiz.setQzid(qzid);
+			  quizDAO.updateQuiz(quiz); 
+			  for(i=0;i<tagvalues.length;i++){
+				  if(!tagvalues[i].equals("")){
+					  //logger.info("tag tag tag: {}",tagvalues[i]);
+					  Tag temp = tagDAO.find(tagvalues[i].trim());
+					  if(temp==null){
+						  tag.setTag(tagvalues[i].trim());
+						  tagDAO.addTag(tag);
+						  quizTagDAO.addQuizTag(qzid, tag.getTagid());
+					  }
+					  else{
+						  quizTagDAO.addQuizTag(qzid, temp.getTagid());
+					  }
+					  
+				  }
+			  }
+			  return "redirect:/questionList?quizid="+quiz.getQzid();
+	  	}
+		  return "redirect:/editQuiz?quizid="+quiz.getQzid();
 	  }
 	  
 	  
@@ -188,9 +210,14 @@ public class QuizController {
 	  
 	  @RequestMapping(value = "/updateCommentQuiz", method = RequestMethod.POST)
 	  public String updateCommentQuiz(Model model,  @ModelAttribute(value="quiz") Quiz quiz, @ModelAttribute(value="comment") Comment comment, @RequestParam(required=false) long qzid){
-		  comment.setQzid(qzid);
-		  commentDAO.addComment(comment);
-		  return "redirect:/questionList?quizid="+qzid;
+		  comment.setComment(comment.getComment().trim());
+		  if(!comment.getComment().isEmpty()){
+			  comment.setQzid(qzid);
+			  commentDAO.addComment(comment);
+			  return "redirect:/questionList?quizid="+qzid;
+		  }
+		  return "redirect:/commentQuiz?qzid="+qzid;
+		  
 	  }
 	  
 	  @RequestMapping(value = "/commentQuiz", method = RequestMethod.GET)

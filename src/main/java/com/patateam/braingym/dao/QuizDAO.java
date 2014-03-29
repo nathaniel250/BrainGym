@@ -65,6 +65,15 @@ public class QuizDAO {
 	}
 	
 	@Transactional
+	public List<Quiz> findAllMyQuiz(long userid) {
+		Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("from Quiz where userid = :userid");
+		query.setParameter("userid", userid);
+		List quizzes = query.list();
+		return quizzes;
+	}
+	
+	@Transactional
 	public List<Quiz> findAll(long catid) {
 		Session session = sessionFactory.getCurrentSession();
 		Query query = session.createQuery("from Quiz where catid = :catid");

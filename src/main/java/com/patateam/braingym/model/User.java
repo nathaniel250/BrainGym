@@ -7,11 +7,14 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 public class User {
 	@Id @GeneratedValue private long userid;
 	private String username;
-	private String password;
+	private String firstName;
+	private String lastName;
+	private float grade;
+	
 	
 	public long getUserid() {
 		return userid;
@@ -25,10 +28,22 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getPassword() {
-		return password;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public float getGrade() {
+		return grade;
+	}
+	public void setGrade(float grade) {
+		this.grade = grade;
 	}
 }

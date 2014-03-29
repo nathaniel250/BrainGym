@@ -10,7 +10,6 @@
     
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/resources/css/ekko-lightbox.min.css"/>" rel="stylesheet"/>
-    
     <script src="<c:url value="/resources/js/jquery.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/js/ekko-lightbox.min.js"/>"></script>
@@ -33,17 +32,20 @@
 		<div class="navbar-collapse collapse" style="color:005b7f;">
 			<ul class="nav navbar-nav" >
 				<li><a href="home" class="link1">Home</a></li>
+				<li><a href="profile">Profile</a></li>
 				<li class="active"><a href="quizList">Take a Quiz</a></li>
 				<li><a href="addQuiz">Create a Quiz</a></li>
 				<li><a href="searchQuiz">Search a Quiz</a></li>
 				<li><a href="quizList">Edit a Quiz</a></li>
 				<li><a href="tagList">Tag List</a></li>
 				<li><a href="categoryList">Category List</a></li>
+				<li><a href="addForum">Create a Forum</a></li>
+				<li><a href="searchForum">Search a Forum</a></li>
 			</ul>
 		</div>
 	</div>
 	</div>
-	<h1> Take a Quiz </h1>	
+	<h1> Take Quiz </h1>	
 	<hr>
 	<form name="input" action="resultQuiz" method="post">
 		<input type="hidden" name="qzid" value=${quizid }>
@@ -53,17 +55,25 @@
 			<div class="col-md-7" id="left" style="position:relative; float:left;">
 				<ol>
 				<c:forEach var="q" items="${questions }">
-					<h4><b><li>${q.question }</li></b></h4>
+					<li><h4><b>${q.question }</b></h4></li>
 					
 					<!-- IF STATEMENT NEEDED FOR PHOTO? -->
-					
-					<div class="row">
-						<div class="col-md-5">
-							<a href="" class="thumbnail" data-remote="<c:url value="${q.image }"/>" data-title="${q.question }" data-toggle="lightbox">
-								<img src="<c:url value="${q.image }"/>" >
-							</a>
+					<c:if test="${q.image != null}">
+						<div class="row">
+							<div class="col-md-5">
+								<a href="" class="thumbnail" data-remote="<c:url value="${q.image }"/>" data-title="${q.question }" data-toggle="lightbox">
+									<img src="<c:url value="${q.image }"/>" >
+								</a>
+							</div>
 						</div>
+					</c:if>
+					
+					<div class="radio">
+						<label>
+							<input type="radio" name="Q${q.qid }" value="null" checked>
+						</label>
 					</div>
+					
 					<div class="radio">
 						<label>
 							<input type="radio" name="Q${q.qid }" value="${q.choiceA }">${q.choiceA }
@@ -74,21 +84,27 @@
 							<input type="radio" name="Q${q.qid }" value="${q.choiceB }">${q.choiceB }
 						</label>
 					</div>
+					<c:if test="${q.choiceC != '' }">
 					<div class="radio">
 						<label>		
 							<input type="radio" name="Q${q.qid }" value="${q.choiceC }">${q.choiceC }
 						</label>
 					</div>
+					</c:if>
+					<c:if test="${q.choiceD != '' }">
 					<div class="radio">
 						<label>
 							<input type="radio" name="Q${q.qid }" value="${q.choiceD }">${q.choiceD }
 						</label>
 					</div>
+					</c:if>
+					<c:if test="${q.choiceE != '' }">
 					<div class="radio">
 						<label>
 							<input type="radio" name="Q${q.qid }" value="${q.choiceE }">${q.choiceE }
 						</label>
 					</div>
+					</c:if>
 					<br>
 				</c:forEach>
 				</ol>

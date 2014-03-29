@@ -1,5 +1,7 @@
 package com.patateam.braingym.controller;
 
+import org.jasypt.util.text.BasicTextEncryptor;
+import org.springframework.web.bind.annotation.CookieValue;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +41,8 @@ public class ForumController {
 			List<Forum> forums = forumDAO.findAll();
 		    model.addAttribute("forums", forums);
 		}
-	    
+		List<Category> categories = categoryDAO.findAll();
+		model.addAttribute("categories", categories);
 	    return "forumList";
 	  }
 	  
@@ -47,14 +50,20 @@ public class ForumController {
 	  public String addForum(Model model){
 		  List<Category> categories = categoryDAO.findAll();
 		  model.addAttribute("categories", categories);
+		  model.addAttribute("warning", "Topic is required.");
 		  return "addForum";
 	  }
 	  
 	  @RequestMapping(value = "/insertForum", method = RequestMethod.POST)
 	  public String insertForum(@ModelAttribute(value="forum") Forum forum, @RequestParam long categoryid, BindingResult result){
-		  forum.setCategoryid(categoryid);
-		  forumDAO.addForum(forum); 
-		  return "redirect:/forumCommentList?forumid="+forum.getForumid();
+		  forum.setTopic(forum.getTopic().trim());
+		  if(!forum.getTopic().isEmpty()){
+			  forum.setCategoryid(categoryid);
+		  
+			  forumDAO.addForum(forum); 
+			  return "redirect:/forumCommentList?forumid="+forum.getForumid();
+		  }
+		  return "redirect:/addForum";
 	  }
 	  
 	  @RequestMapping(value = "/editForum", method = RequestMethod.GET)
@@ -63,16 +72,21 @@ public class ForumController {
 		  List<Category> categories = categoryDAO.findAll();
 		  model.addAttribute("categories", categories);
 		  model.addAttribute("forum", forum);
+		  model.addAttribute("warning", "Topic is required.");
 		  
 		  return "editForum";
 	  }
 	  
 	  @RequestMapping(value = "/updateForum", method = RequestMethod.POST)
 	  public String updateForum(@ModelAttribute(value="forum") Forum forum, @RequestParam long forumid, @RequestParam long categoryid, BindingResult result){
-		  forum.setCategoryid(categoryid);
-		  forum.setForumid(forumid);
-		  forumDAO.updateForum(forum); 
-		  return "redirect:/forumCommentList?forumid="+forum.getForumid();
+		  forum.setTopic(forum.getTopic().trim());
+		  if(!forum.getTopic().isEmpty()){
+			  forum.setCategoryid(categoryid);
+			  forum.setForumid(forumid);
+			  forumDAO.updateForum(forum); 
+			  return "redirect:/forumCommentList?forumid="+forum.getForumid();
+		  }
+		  return "redirect:/editForum?forumid="+forum.getForumid();
 	  }
 	  
 	  @RequestMapping(value = "/deleteForum", method = RequestMethod.GET)

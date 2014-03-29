@@ -21,7 +21,7 @@
         
         <link href="<c:url value="/resources/css/bootstrap-tagsinput.css"/>" rel="stylesheet"/>
         <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"/>
-        <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
+        <!-- link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/-->
         <script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
         <script src="<c:url value="/resources/js/jquery.min.js"/>"></script> 
         <script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
@@ -43,12 +43,15 @@
                     <div class="navbar-collapse collapse" style="color:005b7f;">
                         <ul class="nav navbar-nav" >
                             <li><a href="home" class="link1">Home</a></li>
+                            <li><a href="profile">Profile</a></li>
                             <li class="active"><a href="quizList">Take a Quiz</a></li>
                             <li><a href="addQuiz">Create a Quiz</a></li>
                             <li><a href="searchQuiz">Search a Quiz</a></li>
                             <li><a href="quizList">Edit a Quiz</a></li>
                             <li><a href="tagList">Tag List</a></li>
                             <li><a href="categoryList">Category List</a></li>
+                            <li><a href="addForum">Create a Forum</a></li>
+							<li><a href="searchForum">Search a Forum</a></li>
                         </ul>
                     </div>
                 </div>
@@ -62,19 +65,22 @@
 		</div>	
 			
 	        <br>
+	        
 	        <c:forEach var="q" items="${questions }">
 		        <div class="panel panel-default">
 					<div class="panel-heading">
-		        		<h3 class="panel-title"><a href="questionList?quizid=${qz.qzid}">Question: ${q.question }</a></h3>
+		        		<h3 class="panel-title">Question: ${q.question }</h3>
 					</div>
-					<c:forEach var="answer" items="${answers}">    
+					<c:forEach var="answer" items="${answers}">
+					<c:if test="${q.qid == answer.qid }">
+					<b>Your Answer: ${answer.answer }</b>    
 					<div class = "panel-body">
 					<img src=${q.image }  width="170" height="150"/>
 					<c:choose>
 					    <c:when test="${q.choiceA == q.answer}">
 					    	<h4 style="background-color: #5cb85c;">${q.choiceA }</h4>
 					    </c:when>
-					    <c:when test="${q.choiceA == answer && q.choiceA != q.answer}">
+					    <c:when test="${q.choiceA == answer.answer && q.choiceA != q.answer}">
 					    	<h4 style="background-color: #d9534f;">${q.choiceA }</h4>
 					    </c:when>
 					    <c:otherwise>
@@ -85,7 +91,7 @@
 					    <c:when test="${q.choiceB == q.answer}">
 					       <h4 style="background-color: #5cb85c;">${q.choiceB }</h4>
 					    </c:when>
-					     <c:when test="${q.choiceB == answer && q.choiceB != q.answer}">
+					     <c:when test="${q.choiceB == answer.answer && q.choiceB != q.answer}">
 					    	<h4 style="background-color: #d9534f;">${q.choiceB }</h4>
 					    </c:when>
 					    <c:otherwise>
@@ -96,7 +102,7 @@
 					    <c:when test="${q.choiceC == q.answer}">
 					       <h4 style="background-color: #5cb85c;">${q.choiceC }</h4>
 					    </c:when>
-					    <c:when test="${q.choiceC == answer && q.choiceC != q.answer}">
+					    <c:when test="${q.choiceC == answer.answer && q.choiceC != q.answer}">
 					    	<h4 style="background-color: #d9534f;">${q.choiceC }</h4>
 					    </c:when>
 					    <c:otherwise>
@@ -107,19 +113,30 @@
 					    <c:when test="${q.choiceD == q.answer}">
 					       	<h4 style="background-color: #5cb85c;">${q.choiceD }</h4>
 					    </c:when>
-					    <c:when test="${q.choiceD == answer && q.choiceD != q.answer}">
+					    <c:when test="${q.choiceD == answer.answer && q.choiceD != q.answer}">
 						    <h4 style="background-color: #d9534f;">${q.choiceD }</h4>
 					    </c:when>
 					    <c:otherwise>
 					        <p>${q.choiceD }</p>
 					    </c:otherwise>
 					</c:choose>
+					<c:choose>
+					    <c:when test="${q.choiceE == q.answer}">
+					       	<h4 style="background-color: #5cb85c;">${q.choiceE }</h4>
+					    </c:when>
+					    <c:when test="${q.choiceE == answer.answer && q.choiceE != q.answer}">
+						    <h4 style="background-color: #d9534f;">${q.choiceE }</h4>
+					    </c:when>
+					    <c:otherwise>
+					        <p>${q.choiceE }</p>
+					    </c:otherwise>
+					</c:choose>
 					</div>
+					</c:if>
 					</c:forEach>
 				</div>	
 			</c:forEach>
 
-			
 			
 	</div>	
 </body>

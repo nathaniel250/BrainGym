@@ -24,7 +24,6 @@
     
 	<link href="<c:url value="/resources/css/bootstrap-tagsinput.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet"/>
-    <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
 	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery.min.js"/>"></script> 
 	<script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
@@ -55,6 +54,16 @@
 	  <p><a href="addQuiz" class="btn btn-primary btn-lg">Add a Quiz</a></p>
 	</div>
 	<br>
+	<div class="jumbotron">
+	  <h1>Search Forums</h1>
+	  <p>Search forums by categories.</p>
+	  <p><a href="searchForum" class="btn btn-primary btn-lg">Search Forum</a></p>
+	</div>
+	<div class="jumbotron">
+	  <h1>Create a Forum</h1>
+	  <p>Create your own forum thread.</p>
+	  <p><a href="addForum" class="btn btn-primary btn-lg">Create Forum</a></p>
+	</div>
 	<div class="well well-sm">
 		<p class="creator">Site made by Ryan Gozum, Arah Jamandra, Denise Leviste, Nathaniel Martinez, Trishia Tubojan and JJ Yacapin.</p>
 	</div>

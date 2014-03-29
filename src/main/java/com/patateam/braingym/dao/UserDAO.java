@@ -34,8 +34,15 @@ public class UserDAO {
 	public void editUser(User user){
 		User userToUpdate = find(user.getUserid());
 		userToUpdate.setUsername(user.getUsername());
-		userToUpdate.setPassword(user.getPassword());
+		userToUpdate.setFirstName(user.getFirstName());
+		userToUpdate.setLastName(user.getLastName());
 		
+	}
+	
+	@Transactional
+	public void editUserGrade(User user, int grade){
+		User userToUpdate = find(user.getUserid());
+		userToUpdate.setGrade(grade);
 	}
 	
 	@Transactional

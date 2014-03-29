@@ -20,6 +20,11 @@ public class TagDAO {
 	@Transactional
 	public void addTag(Tag tag){
 		sessionFactory.getCurrentSession().save(tag);
+		/*Session session = sessionFactory.getCurrentSession();
+		Query query = session.createQuery("INSERT INTO 'tag' ('tag') VALUES (:tag) ON DUPLICATE KEY UPDATE 'timesUsed'='timesUsed'+1");
+		query.setParameter("tag", tag);
+		query.executeUpdate();
+		*/
 	}
 	
 	@Transactional

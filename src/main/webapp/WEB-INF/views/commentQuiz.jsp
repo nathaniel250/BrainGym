@@ -21,7 +21,7 @@
     
 	<link href="<c:url value="/resources/css/bootstrap-tagsinput.css"/>" rel="stylesheet"/>
     <link href="<c:url value="/resources/css/bootstrap.min.css"/>" rel="stylesheet" media="screen"/>
-    <link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/>
+    <!-- link href="<c:url value="/resources/css/bootstrap-theme.min.css"/>" rel="stylesheet"/-->
     <script src="<c:url value="/resources/js/jquery.min.js"/>"></script> 
 	<script src="<c:url value="/resources/js/bootstrap-tagsinput.js"/>"></script>
 	<script src="<c:url value="/resources/js/bootstrap.js"/>"></script>
@@ -43,12 +43,15 @@
 			<div class="navbar-collapse collapse" style="color:005b7f;">
 				<ul class="nav navbar-nav" >
 					<li><a href="home" class="link1">Home</a></li>
+					<li><a href="profile">Profile</a></li>
 		            <li><a href="quizList">Take a Quiz</a></li>
 		            <li><a href="addQuiz">Create a Quiz</a></li>
 		            <li><a href="searchQuiz">Search a Quiz</a></li>
 		            <li class="active"><a href="quizList">Edit a Quiz</a></li>
 		            <li><a href="tagList">Tag List</a></li>
 		            <li><a href="categoryList">Category List</a></li>
+		            <li><a href="addForum">Create a Forum</a></li>
+					<li><a href="searchForum">Search a Forum</a></li>
 				</ul>
 			</div>
 		</div>
